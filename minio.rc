@@ -1,0 +1,18 @@
+#!/sbin/openrc-run
+
+name="$RC_SVCNAME"
+command="/bin/minio"
+
+# Change according with your Radarr installation folder
+command_args="server --console-address ':3000' http://10.0.0.1{1...4}/shared/minio"
+
+# Change according with the user/group you would like to use
+#command_user="root:root"
+
+pidfile="/var/run/$RC_SVCNAME.pid"
+command_background="yes"
+output_log="/var/log/tornado.log"
+
+stop() {
+        kill `cat /var/run/$RC_SVCNAME.pid`
+}
