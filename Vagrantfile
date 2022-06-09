@@ -4,7 +4,7 @@ IP_START=10
 
 Vagrant.configure("2") do |config|
   config.vm.provision "shell", inline: <<-SHELL
-    pacman -Sy minio s3fs-fuse --noconfirm
+    pacman -Sy --needed minio minio-client s3fs-fuse docker gnu-netcat --noconfirm
     mkdir -p /shared/minio
     mkdir -p /shared/nfs
   SHELL
@@ -20,7 +20,7 @@ Vagrant.configure("2") do |config|
     node.vm.network "private_network", ip: IP_NW + "#{IP_START + i}"
     node.vm.provider "libvirt" do |lv|
       lv.memory = 1024
-      lv.cpus = 1
+      lv.cpus = 2
     end
     node.vm.provision "shell", path: "provisionscript.sh", env: {"MYVAR" => "value"}
   end
