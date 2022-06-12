@@ -10,7 +10,6 @@ Vagrant.configure("2") do |config|
   SHELL
 
   config.vm.box = "archlinux/archlinux"
-  config.vm.disk :disk, size: "5GB", primary: true
   config.vm.synced_folder ".", "/vagrant", disabled: true
 
   (1..NUM_WORKER_NODES).each do |i|
